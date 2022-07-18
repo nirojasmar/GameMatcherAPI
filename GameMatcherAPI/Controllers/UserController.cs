@@ -24,7 +24,7 @@ namespace GameMatcherAPI.Controllers
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new User
             {
-                UserId = Convert.ToUInt64(index),
+                Id = Convert.ToUInt64(index),
                 Name = Names[Random.Shared.Next(Names.Length)],
                 Age = rng.Next(10,80)
             })
