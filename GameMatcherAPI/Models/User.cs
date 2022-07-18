@@ -1,4 +1,4 @@
-namespace GameMatcherAPI
+namespace GameMatcherAPI.Models
 {
     public class User
     {

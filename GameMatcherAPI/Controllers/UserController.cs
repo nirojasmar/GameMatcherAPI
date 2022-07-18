@@ -1,3 +1,4 @@
+using GameMatcherAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameMatcherAPI.Controllers
@@ -18,11 +19,11 @@ namespace GameMatcherAPI.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
+        [HttpGet(Name = "GetUser")]
         public IEnumerable<User> Get()
         {
             var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new User
+            return Enumerable.Range(1, 10).Select(index => new User
             {
                 Id = Convert.ToUInt64(index),
                 Name = Names[Random.Shared.Next(Names.Length)],
