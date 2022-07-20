@@ -27,7 +27,8 @@ namespace GameMatcherAPI.Controllers
             {
                 Id = Convert.ToUInt64(index),
                 Name = Names[Random.Shared.Next(Names.Length)],
-                Age = rng.Next(10,80)
+                Age = rng.Next(10,80),
+                Rating = new Rating(Convert.ToUInt64(index), rng.Next(1, 5))
             })
             .ToArray();
         }
