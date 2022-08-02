@@ -8,6 +8,7 @@
         public User? Author { get; set; }
         public DateTime? Date { get; set; }
 
+        // Constructor for testing purposes
         public Rating(ulong id, double stars)
         {
             Id = id;

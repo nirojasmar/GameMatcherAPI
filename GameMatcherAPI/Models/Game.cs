@@ -6,6 +6,7 @@
         public string? Name { get; set; }
         public bool IsFavorite { get; set; }
         public bool HasRanked { get; set; }
+        public int MaxGroupSize { get; set; }
         public List<string>? Gamemodes { get; set; }
     }
 }
