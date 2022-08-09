@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace GameMatcherAPI.Models
 {
     public class Party
     {
-        [Key]
-        public int Id { get; set; }
-        public List<User> Users { get; set; }
+        public ObjectId Id { get; set; }
+        public List<User>? Users { get; set; }
     }
 }

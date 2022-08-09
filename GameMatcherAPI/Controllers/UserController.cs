@@ -18,17 +18,15 @@ namespace GameMatcherAPI.Controllers
         {
             _logger = logger;
         }
-
+        // Testing ONLY
         [HttpGet(Name = "GetUser")]
         public IEnumerable<User> Get()
         {
             var rng = new Random();
-            return Enumerable.Range(1, 10).Select(index => new User
+            return Enumerable.Range(1, 10).Select(index => new User(Names[Random.Shared.Next(Names.Length)])
             {
-                Id = Convert.ToUInt64(index),
-                Name = Names[Random.Shared.Next(Names.Length)],
                 Age = rng.Next(10,80),
-                Rating = new Rating(Convert.ToUInt64(index), rng.Next(1, 5))
+                Rating = new Rating(rng.Next(1, 5))
             })
             .ToArray();
         }

@@ -1,20 +1,22 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace GameMatcherAPI.Models
 {
     public class Rating
     {
-        [Key]
-        public ulong Id { get; set; }
+        public ObjectId Id { get; set; }
         public double Stars { get; set; }
         public string? Comment { get; set; }
-        public User? Author { get; set; }
-        public DateTime? Date { get; set; }
 
-        // Constructor for testing purposes
-        public Rating(ulong id, double stars)
+        [BsonElement("user")]
+        public User? Author { get; set; }
+        public DateTime Date { get; set; }
+
+        // Constructor for testing purposes TODO: Include Author into the constructor
+        public Rating(double stars)
         {
-            Id = id;
             Stars = stars;
             Date = DateTime.Now;
         }
