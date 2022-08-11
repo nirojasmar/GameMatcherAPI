@@ -1,6 +1,7 @@
 // -------------------------------------- Temporal Database Testing ------------------------- //
 using MongoDB.Driver;
 using MongoDB.Bson;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,9 +15,27 @@ List<string> databases = client.ListDatabaseNames().ToList(); // TODO: Relocate 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "GameMatcher API",
+        Description = "An ASP.NET Core Web API that provides all the data for GameMatcher",
+        TermsOfService = new Uri("https://example.com/terms"),
+        Contact = new OpenApiContact
+        {
+            Name = "Contact",
+            Url = new Uri("https://example.com/contact")
+        },
+        License = new OpenApiLicense
+        {
+            Name = "License",
+            Url = new Uri("https://example.com/license")
+        }
+    });
+});
 
 var app = builder.Build();
 

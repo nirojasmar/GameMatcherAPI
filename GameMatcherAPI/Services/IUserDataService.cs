@@ -10,7 +10,6 @@ namespace GameMatcherAPI.Services
         User InsertUser(User user);
         User UpdateUser(User user);
         bool DeleteUser(ObjectId id);
-        List<Rating> GetRatings();
         UserGame GetUserGameInfo(ObjectId id);
     }
 }
