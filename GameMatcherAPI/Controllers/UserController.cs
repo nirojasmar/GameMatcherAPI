@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace GameMatcherAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
         private static readonly string[] Names = new[]
