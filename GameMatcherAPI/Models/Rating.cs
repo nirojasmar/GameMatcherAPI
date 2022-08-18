@@ -6,8 +6,9 @@ namespace GameMatcherAPI.Models
 {
     public class Rating
     {
-        [BsonElement("rating_id")]
-        public ObjectId Id { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string? Id { get; set; }
 
         [BsonElement("rating_stars")]
         public double Stars { get; set; }

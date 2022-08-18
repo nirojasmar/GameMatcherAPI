@@ -6,12 +6,17 @@ namespace GameMatcherAPI.Models
 {
     public class User
     {   
-        public ObjectId Id { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string? Id { get; set; }
 
         [BsonElement("username")]
         public string Name { get; set; }
+
+        [BsonElement("age")]
         public int Age { get; set; }
-        public Rating? Rating { get; set; }
+
+        public List<Rating>? Rating { get; set; }
 
         public User(string name)
         {

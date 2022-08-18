@@ -5,11 +5,11 @@ namespace GameMatcherAPI.Services
 {
     public interface IGameDataService
     {
-        List<Game> GetGames();
-        Game GetGameById(ObjectId id);
-        Game GetGameByName(string name);
-        Game InsertGame(Game game);
-        Game UpdateGame(Game game);
-        bool DeleteGame(ObjectId id);
+        Task<List<Game>> GetAsync();
+        Task<Game> GetGameById(string id);
+        Task<Game> GetGameByName(string name);
+        Task InsertGame(Game game);
+        Task UpdateGame(string id, Game game);
+        Task DeleteGame(string id);
     }
 }

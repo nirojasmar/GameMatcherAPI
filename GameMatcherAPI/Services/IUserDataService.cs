@@ -5,11 +5,11 @@ namespace GameMatcherAPI.Services
 {
     public interface IUserDataService
     {
-        List<User> GetUsers();
-        User GetUserById(ObjectId id);
-        User InsertUser(User user);
-        User UpdateUser(User user);
-        bool DeleteUser(ObjectId id);
-        UserGame GetUserGameInfo(ObjectId id);
+        Task<List<User>> GetAsync();
+        Task<User?> GetByIdAsync(string id);
+        Task InsertAsync(User user);
+        Task UpdateAsync(string id, User user);
+        Task DeleteAsync(string id);
+        Task<UserGame> GetUserGamesAsync(User user);
     }
 }

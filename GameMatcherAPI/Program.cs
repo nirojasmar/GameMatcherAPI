@@ -1,9 +1,11 @@
+using GameMatcherAPI.Models;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.Configure<MatcherDatabaseSettings>(
+    builder.Configuration.GetSection("MatcherDatabase"));
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
