@@ -10,12 +10,21 @@ namespace GameMatcherAPI.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; }
 
+        [BsonElement("rating_id")]  // For some reason this doesnt relate to Id
+        public long? RatingId { get; set; }
+
         [BsonElement("rating_stars")]
         public double Stars { get; set; }
 
         [BsonElement("rating_text")]
         public string? Comment { get; set; }
-        public User? Author { get; set; }
+
+        [BsonElement("author_id")]
+        public string? Author { get; set; } //Check if change to User Type is supported
+
+        [BsonElement("game_id")]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string? GameId { get; set; }
 
         [BsonElement("published_date")]
         [BsonRepresentation(BsonType.DateTime)]

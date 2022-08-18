@@ -1,4 +1,5 @@
 using GameMatcherAPI.Models;
+using GameMatcherAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameMatcherAPI.Controllers
@@ -7,28 +8,18 @@ namespace GameMatcherAPI.Controllers
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-        private static readonly string[] Names = new[]
-        {
-            "Nicolas", "Nick", "Jhon", "Juan", "David", "Mathew", "Balmy", "Jack", "George", "Jason"
-        };
+        private readonly UserDAO _userDAO;
 
         private readonly ILogger<UserController> _logger;
 
-        public UserController(ILogger<UserController> logger)
+        public UserController(UserDAO userDAO, ILogger<UserController> logger)
         {
+            _userDAO = userDAO;
             _logger = logger;
         }
-        // Testing ONLY
-        [HttpGet(Name = "GetUser")]
-        public IEnumerable<User> Get()
-        {
-            var rng = new Random();
-            return Enumerable.Range(1, 10).Select(index => new User(Names[Random.Shared.Next(Names.Length)])
-            {
-                Age = rng.Next(10,80),
-                Rating = new Rating(rng.Next(1, 5))
-            })
-            .ToArray();
-        }
+
+        [HttpGet(Name = "GetUserList")]
+        public async Task<List<User>> Get() =>
+            await _userDAO.GetAsync();
     }
 }

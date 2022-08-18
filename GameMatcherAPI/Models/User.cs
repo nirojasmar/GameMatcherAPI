@@ -16,6 +16,7 @@ namespace GameMatcherAPI.Models
         [BsonElement("age")]
         public int Age { get; set; }
 
+        [BsonElement("ratings")]
         public List<Rating>? Rating { get; set; }
 
         public User(string name)
