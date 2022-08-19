@@ -9,6 +9,7 @@ builder.Services.Configure<MatcherDatabaseSettings>(
     builder.Configuration.GetSection("MatcherDatabase"));
 
 builder.Services.AddSingleton<UserDAO>();
+builder.Services.AddSingleton<GameDAO>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>

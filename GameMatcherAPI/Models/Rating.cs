@@ -10,7 +10,7 @@ namespace GameMatcherAPI.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; }
 
-        [BsonElement("rating_id")]  // For some reason this doesnt relate to Id
+        [BsonElement("rating_id")]
         public long? RatingId { get; set; }
 
         [BsonElement("rating_stars")]
@@ -30,9 +30,9 @@ namespace GameMatcherAPI.Models
         [BsonRepresentation(BsonType.DateTime)]
         public DateTime Date { get; set; }
 
-        // Constructor for testing purposes TODO: Include Author into the constructor
-        public Rating(double stars)
+        public Rating(double stars, User author)
         {
+            Author = author.Id;
             Stars = stars;
             Date = DateTime.Now;
         }

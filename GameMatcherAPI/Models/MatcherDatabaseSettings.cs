@@ -7,5 +7,6 @@
         public string? GamesCollectionName { get; set; }
         public string? RatingsCollectionName { get; set; }
         public string? UserGamesCollectionName { get; set; }
+        public string? PartiesCollectionName { get; set; }
     }
 }

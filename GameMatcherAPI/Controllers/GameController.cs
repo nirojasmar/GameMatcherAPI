@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using GameMatcherAPI.Models;
+using GameMatcherAPI.Services;
 
 namespace GameMatcherAPI.Controllers
 {
@@ -7,12 +8,17 @@ namespace GameMatcherAPI.Controllers
     [ApiController]
     public class GameController : ControllerBase
     {
-        // GET: api/<GameController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly GameDAO _gameDAO;
+
+        public GameController(GameDAO gameDAO)
         {
-            return new string[] { "value1", "value2" };
+            _gameDAO = gameDAO;
         }
+
+        // GET: api/<GameController>
+        [HttpGet(Name = "GetGameList")]
+        public async Task<List<Game>> Get() =>
+            await _gameDAO.GetAsync();
 
         // GET api/<GameController>/5
         [HttpGet("{id}")]
