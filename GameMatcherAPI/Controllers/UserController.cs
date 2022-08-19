@@ -30,7 +30,7 @@ namespace GameMatcherAPI.Controllers
         public async Task<IActionResult> Post(User user)
         {
             await _userDAO.InsertAsync(user);
-            return CreatedAtAction(nameof(Get), new { id = user.Id }, user);
+            return CreatedAtAction(nameof(Get), new { id = user.Name }, user);
         }
 
         [HttpPut("{id}")]
@@ -39,7 +39,7 @@ namespace GameMatcherAPI.Controllers
             var user = await _userDAO.GetByIdAsync(id);
 
             if(user == null) { return NotFound(); }
-            updatedUser.Id = user.Id;
+            updatedUser.Name = user.Name;
 
             await _userDAO.UpdateAsync(id, updatedUser);
             return NoContent();

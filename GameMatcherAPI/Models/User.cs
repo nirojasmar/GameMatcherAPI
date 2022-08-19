@@ -7,10 +7,7 @@ namespace GameMatcherAPI.Models
     public class User
     {   
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string? Id { get; set; }
-
-        [BsonElement("username")]
+        [BsonElement("_id")]
         public string Name { get; set; }
 
         [BsonElement("age")]

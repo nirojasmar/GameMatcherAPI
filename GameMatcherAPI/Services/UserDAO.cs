@@ -24,19 +24,19 @@ namespace GameMatcherAPI.Services
         public async Task<List<User>> GetAsync() =>
            await _usersCollection.Find(_ => true).ToListAsync();
 
-        public async Task<User?> GetByIdAsync(string id) =>
-            await _usersCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+        public async Task<User?> GetByIdAsync(string name) =>
+            await _usersCollection.Find(x => x.Name == name).FirstOrDefaultAsync();
 
         public async Task InsertAsync(User user) =>
             await _usersCollection.InsertOneAsync(user);
 
-        public async Task UpdateAsync(string id, User user) =>
-            await _usersCollection.ReplaceOneAsync(x => x.Id == id, user);
+        public async Task UpdateAsync(string name, User user) =>
+            await _usersCollection.ReplaceOneAsync(x => x.Name == name, user);
 
-        public async Task DeleteAsync(string id) =>
-            await _usersCollection.DeleteOneAsync(x => x.Id == id);
+        public async Task DeleteAsync(string name) =>
+            await _usersCollection.DeleteOneAsync(x => x.Name == name);
 
         public async Task<UserGame> GetUserGamesAsync(User user) =>
-            await _userGamesCollection.Find(x => x.User.Id == user.Id).FirstOrDefaultAsync(); // Testing Pending
+            await _userGamesCollection.Find(x => x.User.Name == user.Name).FirstOrDefaultAsync(); // Testing Pending
     }
 }

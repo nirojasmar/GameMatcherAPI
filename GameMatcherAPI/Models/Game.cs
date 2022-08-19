@@ -7,10 +7,7 @@ namespace GameMatcherAPI.Models
     public class Game
     {
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string? Id { get; set; }
-
-        [BsonElement("name")]
+        [BsonElement("_id")]
         public string Name { get; set; }
 
         [BsonElement("hasRanked")]

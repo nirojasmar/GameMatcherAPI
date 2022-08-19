@@ -20,17 +20,18 @@ namespace GameMatcherAPI.Services
             _gamesCollection = mongoDatabase.GetCollection<Game>(options.Value.GamesCollectionName);
         }
 
+        // TODO: Update Functions to reduce clutter
         public async Task<List<Game>> GetAsync() =>
             await _gamesCollection.Find(_ => true).ToListAsync();
         public async Task<Game> GetGameById(string id) =>
-            await _gamesCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+            await _gamesCollection.Find(x => x.Name == id).FirstOrDefaultAsync();
         public async Task<Game> GetGameByName(string name) =>
             await _gamesCollection.Find(x => x.Name == name).FirstOrDefaultAsync();
         public async Task InsertGame(Game game) =>
             await _gamesCollection.InsertOneAsync(game);
         public async Task UpdateGame(string id, Game game) =>
-            await _gamesCollection.ReplaceOneAsync(x => x.Id == id, game);
+            await _gamesCollection.ReplaceOneAsync(x => x.Name == id, game);
         public async Task DeleteGame(string id) =>
-            await _gamesCollection.DeleteOneAsync(x => x.Id == id);
+            await _gamesCollection.DeleteOneAsync(x => x.Name == id);
     }
 }
