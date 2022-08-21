@@ -12,7 +12,7 @@ namespace GameMatcherAPI.Services
         public GameDAO(
             IOptions<MatcherDatabaseSettings> options)
         {
-            string? password = File.ReadAllText(@"M:\Docs\Developer\Utils\password.txt");
+            string? password = File.ReadAllText(@"../password.txt");
             var settings = MongoClientSettings.FromConnectionString("mongodb+srv://admin:" + password + "@maincluster.vwz4kig.mongodb.net/?retryWrites=true&w=majority");
             settings.ServerApi = new ServerApi(ServerApiVersion.V1);
             var client = new MongoClient(settings);
