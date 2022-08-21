@@ -1,6 +1,7 @@
 using GameMatcherAPI.Models;
 using GameMatcherAPI.Services;
 using Microsoft.OpenApi.Models;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -27,7 +27,7 @@ namespace GameMatcherAPI.Controllers
             await _userDAO.GetByIdAsync(id);
 
         [HttpPost]
-        public async Task<IActionResult> Post(User user)
+        public async Task<IActionResult> CreateUser(User user)
         {
             await _userDAO.InsertAsync(user);
             return CreatedAtAction(nameof(Get), new { id = user.Name }, user);

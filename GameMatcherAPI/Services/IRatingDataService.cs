@@ -6,9 +6,9 @@ namespace GameMatcherAPI.Services
     public interface IRatingDataService
     {
         List<Rating> GetAllRatings();
-        Rating GetRatingByAuthor(ObjectId id);
+        Rating GetRatingByAuthor(string id);
         Rating InsertRating(Rating rating);
         Rating UpdateRating(Rating rating);
-        bool DeleteRating(ObjectId id);
+        bool DeleteRating(string id);
     }
 }
