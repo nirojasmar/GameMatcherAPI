@@ -10,10 +10,10 @@ namespace GameMatcherAPI.Models
         public string? Id { get; set; }
 
         [BsonElement("author")]
-        public string Author { get; set; } //Check if change to User Type is supported
+        public string Author { get; set; }
 
         [BsonElement("user_id")]
-        public string User { get; set; }
+        public string? User { get; set; }
 
         [BsonElement("game_id")]
         public string GameId { get; set; }

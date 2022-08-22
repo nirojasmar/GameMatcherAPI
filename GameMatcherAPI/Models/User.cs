@@ -10,15 +10,19 @@ namespace GameMatcherAPI.Models
         [BsonElement("_id")]
         public string Name { get; set; }
 
+        [BsonElement("email")]
+        public string Email { get; set; }
+
         [BsonElement("age")]
         public int Age { get; set; }
 
         [BsonElement("ratings")]
         public List<Rating>? Rating { get; set; }
 
-        public User(string name)
+        public User(string name, string email)
         {
             this.Name = name;
+            this.Email = email;
         }
     }
 }

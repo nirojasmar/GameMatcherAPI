@@ -21,6 +21,7 @@ namespace GameMatcherAPI.Services
             _usersCollection = mongoDatabase.GetCollection<User>(options.Value.UsersCollectionName);
             _userGamesCollection = mongoDatabase.GetCollection<UserGame>(options.Value.UserGamesCollectionName);
         }
+        //TODO: When displaying ratings, User model will only have the 20 most recent ratings
         public async Task<List<User>> GetAsync() =>
            await _usersCollection.Find(_ => true).ToListAsync();
 

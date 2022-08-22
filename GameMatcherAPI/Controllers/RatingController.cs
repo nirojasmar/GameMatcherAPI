@@ -41,6 +41,15 @@ namespace GameMatcherAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> InsertRating(Rating rating)
         {
+            var user = await _userDAO.GetByIdAsync(rating.User);
+            if (user == null)
+            {
+                Log.Error("404: User {user_id} Not Found");
+                return NotFound();
+            }
+            Log.Warning("Inserting {rating} on User {user}");
+            user.Rating.Add(rating);
+            await _userDAO.UpdateAsync(user.Name, user);
             await _ratingDAO.InsertAsync(rating);
             return CreatedAtAction(nameof(Get), new { id = rating.Id }, rating);
         }

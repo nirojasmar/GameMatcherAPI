@@ -18,7 +18,6 @@ namespace GameMatcherAPI.Services
             var mongoDatabase = client.GetDatabase(options.Value.DatabaseName);
             _ratingsCollection = mongoDatabase.GetCollection<Rating>(options.Value.RatingsCollectionName);    
         }
-        //TODO: Introduce a way to when creating rating, user collection needs to be updated with the 20 most recent ratings from UserDAO or RatingDAO
         public async Task<List<Rating>> GetAsync() =>
             await _ratingsCollection.Find(_ => true).ToListAsync();
         public async Task<List<Rating>> GetRatingsByUserAsync(string user_id) =>
