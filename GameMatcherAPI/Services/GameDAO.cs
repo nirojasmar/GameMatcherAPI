@@ -12,7 +12,7 @@ namespace GameMatcherAPI.Services
         public GameDAO(
             IOptions<MatcherDatabaseSettings> options)
         {
-            string? password = File.ReadAllText(@"../password.txt");
+            string? password = File.ReadAllText(@"./password.txt");
             var settings = MongoClientSettings.FromConnectionString("mongodb+srv://admin:" + password + "@maincluster.vwz4kig.mongodb.net/?retryWrites=true&w=majority");
             settings.ServerApi = new ServerApi(ServerApiVersion.V1);
             var client = new MongoClient(settings);
@@ -23,13 +23,13 @@ namespace GameMatcherAPI.Services
         //TODO: Check Functions performance and DB clutter
         public async Task<List<Game>> GetAsync() =>
             await _gamesCollection.Find(_ => true).ToListAsync();
-        public async Task<Game> GetGameById(string id) =>
+        public async Task<Game> GetGameByIdAsync(string id) =>
             await _gamesCollection.Find(x => x.Name == id).FirstOrDefaultAsync();
-        public async Task InsertGame(Game game) =>
+        public async Task InsertAsync(Game game) =>
             await _gamesCollection.InsertOneAsync(game);
-        public async Task UpdateGame(string id, Game game) =>
+        public async Task UpdateAsync(string id, Game game) =>
             await _gamesCollection.ReplaceOneAsync(x => x.Name == id, game);
-        public async Task DeleteGame(string id) =>
+        public async Task DeleteAsync(string id) =>
             await _gamesCollection.DeleteOneAsync(x => x.Name == id);
     }
 }

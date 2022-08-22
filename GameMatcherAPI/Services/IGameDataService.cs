@@ -6,9 +6,9 @@ namespace GameMatcherAPI.Services
     public interface IGameDataService
     {
         Task<List<Game>> GetAsync();
-        Task<Game> GetGameById(string id);
-        Task InsertGame(Game game);
-        Task UpdateGame(string id, Game game);
-        Task DeleteGame(string id);
+        Task<Game> GetGameByIdAsync(string id);
+        Task InsertAsync(Game game);
+        Task UpdateAsync(string id, Game game);
+        Task DeleteAsync(string id);
     }
 }

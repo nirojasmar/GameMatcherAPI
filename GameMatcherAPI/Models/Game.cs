@@ -17,7 +17,6 @@ namespace GameMatcherAPI.Models
         public int MaxGroupSize { get; set; }
 
         [BsonElement("gamemodes")]
-        [BsonRepresentation(BsonType.Array)]
         public List<string> Gamemodes { get; set; }
 
         public Game(string name, bool hasRanked, int maxGroupSize, List<string> gamemodes)

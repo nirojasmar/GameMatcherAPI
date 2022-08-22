@@ -5,10 +5,11 @@ namespace GameMatcherAPI.Services
 {
     public interface IRatingDataService
     {
-        List<Rating> GetAllRatings();
-        Rating GetRatingByAuthor(string id);
-        Rating InsertRating(Rating rating);
-        Rating UpdateRating(Rating rating);
-        bool DeleteRating(string id);
+        Task<List<Rating>> GetAsync();
+        Task<List<Rating>> GetRatingsByUserAsync(string user_id);
+        Task<Rating> GetRatingAsync(string id);
+        Task InsertAsync(Rating rating);
+        Task UpdateAsync(string id, Rating rating);
+        Task DeleteAsync(string id);
     }
 }

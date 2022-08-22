@@ -11,19 +11,25 @@ namespace GameMatcherAPI.Services
         public RatingDAO(
             IOptions<MatcherDatabaseSettings> options)
         {
-            string? password = File.ReadAllText(@"../password.txt");
+            string? password = File.ReadAllText(@"./password.txt");
             var settings = MongoClientSettings.FromConnectionString("mongodb+srv://admin:" + password + "@maincluster.vwz4kig.mongodb.net/?retryWrites=true&w=majority");
             settings.ServerApi = new ServerApi(ServerApiVersion.V1);
             var client = new MongoClient(settings);
             var mongoDatabase = client.GetDatabase(options.Value.DatabaseName);
             _ratingsCollection = mongoDatabase.GetCollection<Rating>(options.Value.RatingsCollectionName);    
         }
-
-        public async Task<List<Rating>> GetAllRatings() =>
+        //TODO: Introduce a way to when creating rating, user collection needs to be updated with the 20 most recent ratings from UserDAO or RatingDAO
+        public async Task<List<Rating>> GetAsync() =>
             await _ratingsCollection.Find(_ => true).ToListAsync();
-        Rating GetRatingByAuthor(string id);
-        Rating InsertRating(Rating rating);
-        Rating UpdateRating(Rating rating);
-        bool DeleteRating(string id);
+        public async Task<List<Rating>> GetRatingsByUserAsync(string user_id) =>
+            await _ratingsCollection.Find(x => x.User == user_id).ToListAsync();
+        public async Task<Rating> GetRatingAsync(string id) =>
+            await _ratingsCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+        public async Task InsertAsync(Rating rating) =>
+            await _ratingsCollection.InsertOneAsync(rating);
+        public async Task UpdateAsync(string id, Rating rating) =>
+            await _ratingsCollection.ReplaceOneAsync(x => x.Id == id, rating);
+        public async Task DeleteAsync(string id) =>
+            await _ratingsCollection.DeleteOneAsync(x => x.Id == id);
     }
 }

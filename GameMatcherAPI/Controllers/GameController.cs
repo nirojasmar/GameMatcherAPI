@@ -24,13 +24,13 @@ namespace GameMatcherAPI.Controllers
         // GET api/<GameController>/5
         [HttpGet("{id}")]
         public async Task<Game> Get(string id) =>
-            await _gameDAO.GetGameById(id);
+            await _gameDAO.GetGameByIdAsync(id);
 
         // POST api/<GameController>
         [HttpPost]
         public async Task<IActionResult> CreateGame(Game game)
         {
-            await _gameDAO.InsertGame(game);
+            await _gameDAO.InsertAsync(game);
             return CreatedAtAction(nameof(Get), new { id = game.Name }, game);
         }
 
@@ -38,7 +38,7 @@ namespace GameMatcherAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateGame(string id, Game updatedGame)
         {
-            var game = await _gameDAO.GetGameById(id);
+            var game = await _gameDAO.GetGameByIdAsync(id);
             if (game == null)
             {
                 Log.Error("User with id {id} Not Found, Aborting...");
@@ -46,23 +46,22 @@ namespace GameMatcherAPI.Controllers
             }
             updatedGame.Name = game.Name;
 
-            await _gameDAO.UpdateGame(id, updatedGame);
+            await _gameDAO.UpdateAsync(id, updatedGame);
             return NoContent();
         }
 
         // DELETE api/<GameController>/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGame(string id, Game deletedGame)
+        public async Task<IActionResult> DeleteGame(string id)
         {
-            var game = await _gameDAO.GetGameById(id);
+            var game = await _gameDAO.GetGameByIdAsync(id);
             if (game == null)
             {
                 Log.Error("User with id {id} Not Found, Aborting...");
                 return NotFound();
             }
-            deletedGame.Name = game.Name;
 
-            await _gameDAO.UpdateGame(id, deletedGame);
+            await _gameDAO.DeleteAsync(id);
             return NoContent();
         }
     }
