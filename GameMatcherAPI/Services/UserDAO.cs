@@ -13,8 +13,7 @@ namespace GameMatcherAPI.Services
         public UserDAO(
             IOptions<MatcherDatabaseSettings> options)
         {
-            string? password = File.ReadAllText(@"./password.txt");
-            var settings = MongoClientSettings.FromConnectionString("mongodb+srv://admin:" + password + "@maincluster.vwz4kig.mongodb.net/?retryWrites=true&w=majority");
+            var settings = MongoClientSettings.FromConnectionString("mongodb+srv://admin:" + options.Value.DatabasePassword + "@maincluster.vwz4kig.mongodb.net/?retryWrites=true&w=majority");
             settings.ServerApi = new ServerApi(ServerApiVersion.V1);
             var client = new MongoClient(settings);
             var mongoDatabase = client.GetDatabase(options.Value.DatabaseName);
@@ -37,7 +36,8 @@ namespace GameMatcherAPI.Services
         public async Task DeleteAsync(string name) =>
             await _usersCollection.DeleteOneAsync(x => x.Name == name);
 
-        public async Task<UserGame> GetUserGamesAsync(User user) =>
-            await _userGamesCollection.Find(x => x.User.Name == user.Name).FirstOrDefaultAsync(); // Testing Pending
+        //TODO: Move to Game Controller
+        public async Task<List<UserGame>> GetUserGamesAsync(string name) =>
+            await _userGamesCollection.Find(x => x.User == name).ToListAsync(); // Testing Pending
     }
 }

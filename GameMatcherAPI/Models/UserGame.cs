@@ -6,16 +6,32 @@ namespace GameMatcherAPI.Models
 {
     public class UserGame
     {
-        public ObjectId Id { get; set; }
-        public User User { get; set; }
-        public Game? Game { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
+
+        [BsonElement("user_id")]
+        public string User { get; set; }
+
+        [BsonElement("game_id")]
+        public string Game { get; set; }
+
+        [BsonElement("username")]
         public string Username { get; set; } //Game username (different to app username)
+
+        [BsonElement("range")]
         public string? Range { get; set; }
+
+        [BsonElement("level")]
         public int? Level { get; set; }
+
+        [BsonElement("region")]
         public string? Region { get; set; }
+
+        [BsonElement("role")]
         public string? Role { get; set; }
 
-        public UserGame(User user, Game game, string username)
+        public UserGame(string user, string game, string username)
         {
             this.User = user;
             this.Game = game;

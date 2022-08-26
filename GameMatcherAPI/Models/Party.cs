@@ -12,12 +12,12 @@ namespace GameMatcherAPI.Models
 
         // **** Testing Pending: Change List<User> to List<UserGame> //
         [BsonElement("game")]
-        public Game? Game { get; set; } 
+        public string Game { get; set; } 
 
         [BsonElement("users")]
         public List<User>? Users { get; set; }
 
-        public Party(User user, Game game)
+        public Party(User user, string game)
         {
             Game = game;
             Users = new List<User>();

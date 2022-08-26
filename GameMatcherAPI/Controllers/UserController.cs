@@ -26,6 +26,10 @@ namespace GameMatcherAPI.Controllers
         public async Task<User?> GetUserById(string id) =>
             await _userDAO.GetByIdAsync(id);
 
+        [HttpGet(template: "UserGame/{id}", Name = "GetUserGame")]
+        public async Task<List<UserGame>> GetUserGamesByName(string id) =>
+            await _userDAO.GetUserGamesAsync(id);
+
         [HttpPost]
         public async Task<IActionResult> CreateUser(User user)
         {

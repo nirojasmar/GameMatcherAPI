@@ -11,8 +11,7 @@ namespace GameMatcherAPI.Services
         public RatingDAO(
             IOptions<MatcherDatabaseSettings> options)
         {
-            string? password = File.ReadAllText(@"./password.txt");
-            var settings = MongoClientSettings.FromConnectionString("mongodb+srv://admin:" + password + "@maincluster.vwz4kig.mongodb.net/?retryWrites=true&w=majority");
+            var settings = MongoClientSettings.FromConnectionString("mongodb+srv://admin:" + options.Value.DatabasePassword + "@maincluster.vwz4kig.mongodb.net/?retryWrites=true&w=majority");
             settings.ServerApi = new ServerApi(ServerApiVersion.V1);
             var client = new MongoClient(settings);
             var mongoDatabase = client.GetDatabase(options.Value.DatabaseName);

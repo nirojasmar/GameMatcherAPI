@@ -2,6 +2,7 @@
 {
     public class MatcherDatabaseSettings
     {
+        public string DatabasePassword = File.ReadAllText(@"./password.txt");
         public string? DatabaseName { get; set; }
         public string? UsersCollectionName { get; set; }
         public string? GamesCollectionName { get; set; }
