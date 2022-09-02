@@ -8,7 +8,6 @@ namespace GameMatcherAPI.Services
     public class UserDAO : IUserDataService
     {
         private readonly IMongoCollection<User> _usersCollection;
-        private readonly IMongoCollection<UserGame> _userGamesCollection;
 
         public UserDAO(
             IOptions<MatcherDatabaseSettings> options)
@@ -18,7 +17,6 @@ namespace GameMatcherAPI.Services
             var client = new MongoClient(settings);
             var mongoDatabase = client.GetDatabase(options.Value.DatabaseName);
             _usersCollection = mongoDatabase.GetCollection<User>(options.Value.UsersCollectionName);
-            _userGamesCollection = mongoDatabase.GetCollection<UserGame>(options.Value.UserGamesCollectionName);
         }
         //TODO: When displaying ratings, User model will only have the 20 most recent ratings
         public async Task<List<User>> GetAsync() =>
@@ -35,9 +33,5 @@ namespace GameMatcherAPI.Services
 
         public async Task DeleteAsync(string name) =>
             await _usersCollection.DeleteOneAsync(x => x.Name == name);
-
-        //TODO: Move to Game Controller
-        public async Task<List<UserGame>> GetUserGamesAsync(string name) =>
-            await _userGamesCollection.Find(x => x.User == name).ToListAsync(); // Testing Pending
     }
 }

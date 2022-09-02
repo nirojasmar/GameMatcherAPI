@@ -48,6 +48,10 @@ namespace GameMatcherAPI.Controllers
                 return NotFound();
             }
             Log.Warning("Inserting {rating} on User {user}");
+            if (user.Rating.Count >= 20)
+            {
+                user.Rating.Remove(user.Rating.ElementAt(0));
+            }
             user.Rating.Add(rating);
             await _userDAO.UpdateAsync(user.Name, user);
             await _ratingDAO.InsertAsync(rating);
@@ -73,12 +77,17 @@ namespace GameMatcherAPI.Controllers
         public async Task<IActionResult> DeleteRating(string id)
         {
             var oldRating = await _ratingDAO.GetRatingAsync(id);
+            var user = await _userDAO.GetByIdAsync(oldRating.User);
+            if(user.Rating.Find(x => x.Id == id) != null)
+            {
+                user.Rating.Remove(oldRating);
+            }
             if (oldRating == null)
             {
                 Log.Error("Rating with id {id} Not Found, Aborting...");
                 return NotFound();
             }
-
+            await _userDAO.UpdateAsync(user.Name, user); //Testing
             await _ratingDAO.DeleteAsync(id);
             return NoContent();
         }

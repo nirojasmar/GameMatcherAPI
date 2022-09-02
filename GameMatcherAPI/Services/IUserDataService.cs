@@ -10,6 +10,5 @@ namespace GameMatcherAPI.Services
         Task InsertAsync(User user);
         Task UpdateAsync(string id, User user);
         Task DeleteAsync(string id);
-        Task<List<UserGame>> GetUserGamesAsync(string name);
     }
 }

@@ -7,6 +7,7 @@ namespace GameMatcherAPI.Models
     public class Rating
     {
         [BsonId]
+        [BsonElement("_id")]
         public string? Id { get; set; }
 
         [BsonElement("author")]
@@ -25,15 +26,6 @@ namespace GameMatcherAPI.Models
         public string? Comment { get; set; }
 
         [BsonElement("published_date")]
-        [BsonRepresentation(BsonType.DateTime)]
         public DateTime Date { get; set; }
-
-        public Rating(double stars, User author, Game game)
-        {
-            Author = author.Name;
-            GameId = game.Name;
-            Stars = stars;
-            Date = DateTime.Now;
-        }
     }
 }

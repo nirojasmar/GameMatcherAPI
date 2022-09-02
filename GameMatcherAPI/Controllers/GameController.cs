@@ -34,6 +34,11 @@ namespace GameMatcherAPI.Controllers
             return CreatedAtAction(nameof(Get), new { id = game.Name }, game);
         }
 
+        //GET api/Game/UserGame/LaPulga99
+        [HttpGet(template: "UserGame/{id}", Name = "GetUserGame")]
+        public async Task<List<UserGame>> GetUserGamesByName(string id) =>
+            await _gameDAO.GetUserGamesAsync(id);
+
         // PUT api/<GameController>/5
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateGame(string id, Game updatedGame)

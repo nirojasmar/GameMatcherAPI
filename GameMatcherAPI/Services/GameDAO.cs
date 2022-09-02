@@ -8,6 +8,7 @@ namespace GameMatcherAPI.Services
     public class GameDAO : IGameDataService
     {
         private readonly IMongoCollection<Game> _gamesCollection;
+        private readonly IMongoCollection<UserGame> _userGamesCollection;
 
         public GameDAO(
             IOptions<MatcherDatabaseSettings> options)
@@ -17,6 +18,7 @@ namespace GameMatcherAPI.Services
             var client = new MongoClient(settings);
             var mongoDatabase = client.GetDatabase(options.Value.DatabaseName);
             _gamesCollection = mongoDatabase.GetCollection<Game>(options.Value.GamesCollectionName);
+            _userGamesCollection = mongoDatabase.GetCollection<UserGame>(options.Value.UserGamesCollectionName);
         }
 
         //TODO: Check Functions performance and DB clutter
@@ -24,6 +26,8 @@ namespace GameMatcherAPI.Services
             await _gamesCollection.Find(_ => true).ToListAsync();
         public async Task<Game> GetGameByIdAsync(string id) =>
             await _gamesCollection.Find(x => x.Name == id).FirstOrDefaultAsync();
+        public async Task<List<UserGame>> GetUserGamesAsync(string name) =>
+            await _userGamesCollection.Find(x => x.User == name).ToListAsync();
         public async Task InsertAsync(Game game) =>
             await _gamesCollection.InsertOneAsync(game);
         public async Task UpdateAsync(string id, Game game) =>

@@ -6,6 +6,7 @@ namespace GameMatcherAPI.Services
 {
     public class RatingDAO: IRatingDataService
     {
+        private readonly IMongoCollection<User> _usersCollection;
         private readonly IMongoCollection<Rating> _ratingsCollection;
         
         public RatingDAO(
@@ -15,6 +16,7 @@ namespace GameMatcherAPI.Services
             settings.ServerApi = new ServerApi(ServerApiVersion.V1);
             var client = new MongoClient(settings);
             var mongoDatabase = client.GetDatabase(options.Value.DatabaseName);
+            _usersCollection = mongoDatabase.GetCollection<User>(options.Value.UsersCollectionName);
             _ratingsCollection = mongoDatabase.GetCollection<Rating>(options.Value.RatingsCollectionName);    
         }
         public async Task<List<Rating>> GetAsync() =>
