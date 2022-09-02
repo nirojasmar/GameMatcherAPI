@@ -10,18 +10,10 @@ namespace GameMatcherAPI.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; }
 
-        // **** Testing Pending: Change List<User> to List<UserGame> //
-        [BsonElement("game")]
+        [BsonElement("game_id")]
         public string Game { get; set; } 
 
         [BsonElement("users")]
-        public List<User>? Users { get; set; }
-
-        public Party(User user, string game)
-        {
-            Game = game;
-            Users = new List<User>();
-            Users.Add(user);
-        }
+        public List<UserGame>? Users { get; set; }
     }
 }

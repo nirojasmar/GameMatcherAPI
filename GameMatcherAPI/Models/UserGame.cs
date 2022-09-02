@@ -14,7 +14,7 @@ namespace GameMatcherAPI.Models
         public string User { get; set; }
 
         [BsonElement("game_id")]
-        public string Game { get; set; }
+        public string? Game { get; set; }
 
         [BsonElement("username")]
         public string Username { get; set; } //Game username (different to app username)

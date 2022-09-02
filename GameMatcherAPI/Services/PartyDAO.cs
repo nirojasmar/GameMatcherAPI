@@ -23,7 +23,7 @@ namespace GameMatcherAPI.Services
             await _partyCollection.Find(x => x.Game == game).ToListAsync();
 
         public async Task<Party> GetByPlayerAsync(string user) =>
-            await _partyCollection.Find(x => x.Users.Exists(y => y.Name == user)).FirstOrDefaultAsync();
+            await _partyCollection.Find(x => x.Users.Exists(y => y.User == user)).FirstOrDefaultAsync();
 
         public async Task<Party> GetAsync(string id) =>
             await _partyCollection.Find(x => x.Id == id).FirstOrDefaultAsync();

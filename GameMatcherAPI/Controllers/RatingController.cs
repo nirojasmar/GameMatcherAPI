@@ -62,14 +62,21 @@ namespace GameMatcherAPI.Controllers
         public async Task<IActionResult> UpdateRating(string id, Rating updatedRating)
         {
             var oldRating = await _ratingDAO.GetRatingAsync(id);
-            if(oldRating == null)
+            var user = await _userDAO.GetByIdAsync(oldRating.User);
+            var remove = user.Rating.SingleOrDefault(r => r.Id.Equals(oldRating.Id));
+            if (oldRating == null)
             {
                 Log.Error("Rating with id {id} Not Found, Aborting...");
                 return NotFound();
             }
-
             updatedRating.Id = oldRating.Id;
+            if (remove != null)
+            {
+                user.Rating.Remove(remove);
+                user.Rating.Add(updatedRating);
+            }
             await _ratingDAO.UpdateAsync(id, updatedRating);
+            await _userDAO.UpdateAsync(user.Name, user);
             return NoContent();
         }
         
@@ -78,16 +85,17 @@ namespace GameMatcherAPI.Controllers
         {
             var oldRating = await _ratingDAO.GetRatingAsync(id);
             var user = await _userDAO.GetByIdAsync(oldRating.User);
-            if(user.Rating.Find(x => x.Id == id) != null)
-            {
-                user.Rating.Remove(oldRating);
-            }
+            var remove = user.Rating.SingleOrDefault(r => r.Id.Equals(id));
             if (oldRating == null)
             {
                 Log.Error("Rating with id {id} Not Found, Aborting...");
                 return NotFound();
             }
-            await _userDAO.UpdateAsync(user.Name, user); //Testing
+            if (remove != null)
+            {
+                user.Rating.Remove(remove);
+            }
+            await _userDAO.UpdateAsync(user.Name, user);
             await _ratingDAO.DeleteAsync(id);
             return NoContent();
         }
